@@ -11,6 +11,12 @@ const defaultStore = {
 }
 
 export default (prevState = defaultStore, action) => {
+  if (action.type === ActionTypes.GET_INIT_DATA) {
+    const newState = JSON.parse(JSON.stringify(prevState))
+    newState.val = action.data.val
+    newState.list = [...action.data.list]
+    return newState
+  }
   if (action.type === ActionTypes.CHANGE_INPUT_VAL) {
     const newState = JSON.parse(JSON.stringify(prevState))
     newState.val = action.val
