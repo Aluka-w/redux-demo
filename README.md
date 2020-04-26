@@ -1,6 +1,6 @@
 # Redux
 
-## redux
+## redux基本用法
 
 1. `yarn add redux`
 
@@ -21,6 +21,12 @@
    1. store.subscribe(fn): 发布订阅, store 更改, 执行 fn
    2. store.getState(): 获取 store 数据
    3. store.dispatch(action): 派发 action 到 reducer, 然后更新 store 的值
+
+## redux中间件
+
+1. 原理: action 到 store 的中间, 升级 dispatch 方法
+
+2. 例子: redux-saga, redux-thunk, redux-logger(在每次 dispatch 时, 打印)
 
 ### Redux DevTools Extension
 
@@ -53,7 +59,7 @@
 
 1. 目的: 简单的处理异步请求, redux 中间件
 
-2. 原理: dispatch 一个函数, reducer 检测到是函数时, 先执行函数之后才真正的 dispatch 对象
+2. 原理: redux-thunk, dispatch 检测到是函数, 先执行再派发, 给 reducer
 
 3. 局限: 破坏了 reducer 处理纯函数的原则
 
@@ -71,3 +77,57 @@
      }
    }
    ```
+
+> redux-thunk: `https://github.com/reduxjs/redux-thunk`
+
+### redux-saga
+
+1. 目的: 处理异步请求, 适用于复杂大型的项目数据请求(复合 dispatch 纯函数)
+
+2. 代码
+
+   ```js
+   // sagas.js
+   import { put, takeEvery } from 'redux-saga/effects'
+   import axios from 'axios'
+   import { GET_INIT } from './actionTypes'
+   import { initDataAction } from './actionCreator'
+
+   // generator函数, 处理异步请求, try-catch处理错误请求
+   function* fetchUser() {
+     console.log('监听到了GET_INIT')
+     try {
+       const res = yield axios.get('/api/list.json')
+       const action = initDataAction(res.data)
+       yield put(action)
+     } catch (e) {
+       console.log('请求错误')
+     }
+   }
+
+   // takeEvery, 监听GET_INIT动作, 有就执行fetchUser
+   function* todoListSaga() {
+     yield takeEvery(GET_INIT, fetchUser)
+   }
+
+   export default todoListSaga
+   ```
+
+   ```js
+   // main.js
+   import { createStore, applyMiddleware } from 'redux'
+   import createSagaMiddleware from 'redux-saga'
+
+   import reducer from './reducers'
+   import mySaga from './sagas'
+
+   // create the saga middleware
+   const sagaMiddleware = createSagaMiddleware()
+   // mount it on the Store
+   const store = createStore(reducer, applyMiddleware(sagaMiddleware))
+
+   // then run the saga
+   sagaMiddleware.run(mySaga)
+   ```
+
+> redux-saga: `https://github.com/redux-saga/redux-saga`

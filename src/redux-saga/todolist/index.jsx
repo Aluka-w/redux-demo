@@ -5,7 +5,6 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { Input, Button, List } from 'antd'
 import Store from '../store'
 import * as ActionCreator from '../store/actionCreator'
-import axios from 'axios'
 
 const useGetData = () => {
   const [list, setList] = useState(Store.getState().list)
@@ -28,13 +27,9 @@ function App() {
   const [list, val] = useGetData()
 
   useEffect(() => {
-    Store.dispatch(ActionCreator.getList())
-    // axios.get('/api/list.json').then(res => {
-    //   console.log(res.data);
-    //   if (res.code === 0) {
-    //     const data = res.data
-    //   }
-    // })
+    // redux-saga
+    const action = ActionCreator.getDataAction()
+    Store.dispatch(action)
   }, [])
 
   const handleChangeVal = useCallback((e) => {

@@ -19,11 +19,12 @@ export const deleteListAction = (idx) => ({
   idx
 })
 
-const initDataAction = (data) => ({
+export const initDataAction = (data) => ({
   type: ActionType.GET_INIT_DATA,
   data
 })
 
+// redux-thunk
 export const getList = () => {
   return (dispatch) => {
     axios.get('/api/list.json').then(res => {

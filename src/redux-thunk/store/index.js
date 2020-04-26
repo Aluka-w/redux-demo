@@ -1,6 +1,8 @@
 /**
  * @description 创建 store
  */
+
+ // redux-tunk
 import { createStore, applyMiddleware, compose } from "redux"
 import reducer from "./reducer"
 import thunk from 'redux-thunk'

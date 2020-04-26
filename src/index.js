@@ -1,7 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
 // import App from './react-transition-group' // react-transition-group的demo
-import App from "./redux/todolist" // redux的demo
+// import App from "./redux-thunk/todolist" // redux-thunk demo
+import App from "./redux-saga/todolist" // redux-saga demo
 import "antd/dist/antd.css"
 
 ReactDOM.render(<App />, document.getElementById("root"))
