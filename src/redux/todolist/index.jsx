@@ -1,39 +1,43 @@
 /**
- * @description todolist 文件
+ * @description redux todolist 文件
  */
-import React from "react"
-import { Input, Button, List } from "antd"
-import Store from "../redux-store"
-import * as ActionCreator from '../redux-store/actionCreator'
+import React, { useEffect, useState, useCallback } from 'react'
+import { Input, Button, List } from 'antd'
+import Store from '../store'
+import * as ActionCreator from '../store/actionCreator'
 
 const useGetData = () => {
-  const [list, setList] = React.useState(Store.getState().list)
-  const [val, setVal] = React.useState(Store.getState().val)
+  const [list, setList] = useState(Store.getState().list)
+  const [val, setVal] = useState(Store.getState().val)
 
-  const handleData = React.useCallback(() => {
+  const handleData = useCallback(() => {
     const data = Store.getState()
     setList([...data.list])
     setVal(data.val)
   }, [])
-  Store.subscribe(handleData)
+
+  useEffect(() => {
+    Store.subscribe(handleData)
+  }, [handleData])
+
   return [list, val]
 }
 
 function App() {
   const [list, val] = useGetData()
 
-  const handleChangeVal = React.useCallback((e) => {
+  const handleChangeVal = useCallback((e) => {
     const val = e.target.value
     const action = ActionCreator.changeValAction(val)
     Store.dispatch(action)
   }, [])
 
-  const handleSubmit = React.useCallback(() => {
+  const handleSubmit = useCallback(() => {
     const action = ActionCreator.addListAction()
     Store.dispatch(action)
   }, [])
 
-  const handleDelete = React.useCallback((idx) => {
+  const handleDelete = useCallback((idx) => {
     const action = ActionCreator.deleteListAction(idx)
     Store.dispatch(action)
   }, [])
@@ -51,7 +55,9 @@ function App() {
         bordered
         dataSource={list}
         style={{ width: 300 }}
-        renderItem={(item, idx) => <List.Item onClick={() => handleDelete(idx)}>{item}</List.Item>}
+        renderItem={(item, idx) => (
+          <List.Item onClick={() => handleDelete(idx)}>{item}</List.Item>
+        )}
       />
     </div>
   )
