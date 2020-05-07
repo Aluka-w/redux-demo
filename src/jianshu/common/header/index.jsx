@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { CSSTransition } from 'react-transition-group'
 import LogoIcon from './LogoIcon'
 import { connect } from 'react-redux'
@@ -59,7 +59,7 @@ export const Header = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  focused: state.header.focused
+  focused: state.getIn(['header', 'focused'])
 })
 
 const mapDispatchToProps = dispatch => ({

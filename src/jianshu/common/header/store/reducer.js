@@ -1,14 +1,15 @@
 import { constants } from './index';
-const defaulState = {
+import { fromJS }  from 'immutable'
+const defaulState = fromJS({
   focused: false
-}
+})
 
 const reducer = (prevState = defaulState, action) => {
   if (action.type === constants.SEARCH_FOCUS) {
-    return { focused: true }
+    return  prevState.set('focused', true)
   }
   if (action.type === constants.SEARCH_BLUR) {
-    return { focused: false }
+    return prevState.set('focused', false)
   }
   return prevState
 }
