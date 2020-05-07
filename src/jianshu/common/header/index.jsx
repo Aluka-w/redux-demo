@@ -1,11 +1,13 @@
-import React, { useState } from "react"
-import { CSSTransition } from "react-transition-group"
-import LogoIcon from "./LogoIcon"
+import React, { useState } from 'react'
+import { CSSTransition } from 'react-transition-group'
+import LogoIcon from './LogoIcon'
+import { connect } from 'react-redux'
+import { actionCreator } from './store'
 import {
   SearchOutlined,
   FontColorsOutlined,
   EditOutlined,
-} from "@ant-design/icons"
+} from '@ant-design/icons'
 import {
   HeaderWrapper,
   Logo,
@@ -15,10 +17,10 @@ import {
   NavSearchWrapper,
   Addition,
   Button,
-} from "./style"
+} from './style'
 
-export default function Header() {
-  const [focused, setFocused] = useState(false)
+export const Header = (props) => {
+  const { focused } = props
   return (
     <HeaderWrapper>
       <Logo>
@@ -34,13 +36,13 @@ export default function Header() {
         <NavSearchWrapper>
           <CSSTransition in={focused} timeout={300} classNames="slide">
             <NavSearch
-              className={focused ? "focused" : ""}
-              onFocus={() => setFocused(true)}
-              onBlur={() => setFocused(false)}
+              className={focused ? 'focused' : ''}
+              onFocus={props.handleFocus}
+              onBlur={props.handleBlur}
             ></NavSearch>
           </CSSTransition>
           <SearchOutlined
-            className={focused ? "focused zoom" : "zoom"}
+            className={focused ? 'focused zoom' : 'zoom'}
             style={{ fontSize: 15 }}
           />
         </NavSearchWrapper>
@@ -55,3 +57,18 @@ export default function Header() {
     </HeaderWrapper>
   )
 }
+
+const mapStateToProps = (state) => ({
+  focused: state.header.focused
+})
+
+const mapDispatchToProps = dispatch => ({
+  handleFocus: () => {
+    dispatch(actionCreator.searchFocusAction())
+  },
+  handleBlur: () => {
+    dispatch(actionCreator.searchBlurAction())
+  },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
