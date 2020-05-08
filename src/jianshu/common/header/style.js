@@ -27,168 +27,147 @@ export const Nav = styled.div`
   margin: 0 auto;
 `
 
-export const NavWrapper = styled.div`
-  overflow: hidden;
-  position: relative;
-  height: 56px;
-  margin: 0 auto;
-  width: 960px;
-  padding: 0px 15px;
-  border-box: box-sizing;
-`
-
 export const NavItem = styled.div`
-  line-height: 26px;
-  padding: 15px;
-  font-size: 17px;
-  color: #969696;
-  margin-right: 10px;
-  &.active {
-    color: #ea6f5a;
-  }
-  &.left {
-    float: left;
-  }
-  &.right {
-    float: right;
-  }
-`
+	line-height: 56px;
+	padding: 0 15px;
+	font-size: 17px;
+	color: #333;
+	&.left {
+		float: left;
+	}
+	&.right {
+		float: right;
+		color: #969696;
+	}
+	&.active {
+		color: #ea6f5a;
+	}
+`;
 
-export const NavSearchWrapper = styled.div`
-  padding-left: 15px;
-  margin-right: 10px;
-  position: relative;
-  float: left;
-  .zoom {
-    display: block;
-    width: 30px;
-    height: 30px;
-    border-radius: 15px;
-    text-align: center;
-    line-height: 30px;
-    position: absolute;
-    font-width: bold;
-    font-size: 20px;
-    top: 13px;
-    right: 5px;
-    &.focused {
-      color: #fff;
-      background: #969696;
-    }
-  }
-`
+export const SearchWrapper = styled.div`
+	position: relative;
+	float: left;
+	.zoom {
+		position: absolute;
+		right: 5px;
+		bottom: 5px;
+		width: 30px;
+		line-height: 30px;
+		border-radius: 15px;
+		text-align: center;
+		&.focused {
+			background: #777;
+			color: #fff;
+		}
+	}
+`;
 
 export const NavSearch = styled.input.attrs({
-  placeholder: "搜索",
+	placeholder: '搜索'
 })`
-  width: 240px;
-  height: 38px;
-  border-radius: 40px;
-  background: #eee;
-  font-size: 14px;
-  padding: 0 40px 0 20px;
-  border: 1px solid #eee;
-  margin-top: 9px;
-  outline: none;
-  &::placeholder {
-    font-size: 124x;
-    color: #969696;
-  }
-  &.focused {
-    width: 340px;
-  }
-  &.slide-enter {
-    width: 240px;
-  }
-  &.slide-enter-active {
-    width: 320px;
-    transition: all 0.3s ease-out;
-  }
-  &.slide-enter-done {
-    width: 320px;
-  }
-  &.slide-exit {
-    width: 320px;
-  }
-  &.slide-exit-active {
-    width: 240px;
-    transition: all 0.3s ease-out;
-  }
-  &.slide-exit-done {
-    width: 240px;
-  }
-`
+	width: 160px;
+	height: 38px;
+	padding: 0 30px 0 20px;
+	margin-top: 9px;
+	margin-left: 20px;
+	box-sizing: border-box;
+	border: none;
+	outline: none;
+	border-radius: 19px;
+	background: #eee;
+	font-size: 14px;
+	color: #666;
+	&::placeholder {
+		color: #999;
+	}
+	&.focused {
+		width: 240px;
+	}
+	&.slide-enter {
+		transition: all .2s ease-out;
+	}
+	&.slide-enter-active {
+		width: 240px;
+	}
+	&.slide-exit {
+		transition: all .2s ease-out;
+	}
+	&.slide-exit-active {
+		width: 160px;
+	}
+`;
 
-export const SearchInfoWrapper = styled.div`
-  width: 250px;
-  z-index: 1;
-  padding: 20px 20px 10px;
-  border-bottom: 1px solid #f0f0f0;
-  border-radius: 4px;
-  position: absolute;
-  background-color: #fff;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-  margin-top: 9px;
-  left: 5px;
-`
+export const SearchInfo = styled.div`
+	position: absolute;
+	left: 0;
+	top: 56px;
+	width: 240px;
+	padding: 0 20px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, .2);
+	background: #fff;
+`;
 
-export const SearchTitle = styled.div`
-  line-height: 20px;
-  font-size: 14px;
-  color: #969696;
-`
+export const SearchInfoTitle = styled.div`
+	margin-top: 20px;
+	margin-bottom: 15px;
+	line-height: 20px;
+	font-size: 14px;
+	color: #969696;
+`;
 
-export const SearchSwitch = styled.span`
-  float: right;
-  font-size: 13px;
-  color: #969696;
-  .spin {
-    font-size: 12px;
-    margin-right: 2px;
-    transition: all 0.2s ease-in;
-    transfor-origin: center center;
-    display: block;
-    float: left;
-  }
-`
+export const SearchInfoSwitch = styled.span`
+	float: right;
+	font-size: 13px;
+	cursor: pointer;
+	.spin {
+		display: block;
+		float: left;
+		font-size: 12px;
+		margin-right: 2px;
+		margin-top: 3px;
+		transition: all .2s ease-in;
+		transform-origin: center center;
+	}
+`;
 
 export const SearchInfoList = styled.div`
-  margin-top: 18px;
-  overflow: hidden;
-`
+	overflow: hidden;
+`;
 
-export const SearchInfoItem = styled.span`
-  margin-right: 10px;
-  margin-bottom: 14px;
-  float: left;
-  padding: 2px 4px;
-  font-size: 12px;
-  color: #787878;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-`
+export const SearchInfoItem = styled.a`
+	display: block;
+	float: left;
+	line-height: 20px;
+	padding: 0 5px;
+	margin-right: 10px;
+	margin-bottom: 15px;
+	font-size: 12px;
+	border: 1px solid #ddd;
+	color: #787878;
+	border-radius: 3px;
+`;
 
 export const Addition = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 56px;
-`
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 56px;
+`;
 
 export const Button = styled.div`
-  float: right;
-  line-height: 38px;
-  border-radius: 19px;
-  margin-top: 9px;
-  border: 1px solid #ec6149;
-  margin-right: 20px;
-  padding: 0 20px;
-  font-size: 14px;
-  &.reg {
-    color: #ec6149;
-  }
-  &.writting {
-    color: #fff;
-    background: #ec6149;
-  }
+	float: right;
+	margin-top: 9px;
+	margin-right: 20px;
+	padding: 0 20px;
+	line-height: 38px;
+	border-radius: 19px;
+	border: 1px solid #ec6149;
+	font-siz: 14px;
+	&.reg {
+		color: #ec6149;
+	}
+	&.writting {
+		color: #fff;
+		background: #ec6149;
+	}
 `

@@ -2,26 +2,36 @@
  * @description 创建 store
  */
 
-// redux-saga
-import { createStore, applyMiddleware, compose } from 'redux'
-import createSagaMiddleware from 'redux-saga'
+// // redux-saga
+// import { createStore, applyMiddleware, compose } from 'redux'
+// import createSagaMiddleware from 'redux-saga'
 
-import reducer from './reducer'
-// import todoListSaga from './sagas'
+// import reducer from './reducer'
+// // import todoListSaga from './sagas'
 
-// create the saga middleware
-const sagaMiddleware = createSagaMiddleware()
-const composeEnhancers =
-  typeof window === 'object' &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-    }) : compose;
+// // create the saga middleware
+// const sagaMiddleware = createSagaMiddleware()
+// const composeEnhancers =
+//   typeof window === 'object' &&
+//   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
+//     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+//     }) : compose;
 
-const enhancer = composeEnhancers(
-  applyMiddleware(sagaMiddleware),
-);
-const Store = createStore(reducer, enhancer);
+// const enhancer = composeEnhancers(
+//   applyMiddleware(sagaMiddleware),
+// );
+// const Store = createStore(reducer, enhancer);
 
-// sagaMiddleware.run(todoListSaga)
+// // sagaMiddleware.run(todoListSaga)
 
-export default Store
+// export default Store
+import { createStore, compose, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import reducer from './reducer';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const Store = createStore(reducer, composeEnhancers(
+	applyMiddleware(thunk)
+));
+
+export default Store;
